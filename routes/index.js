@@ -5,7 +5,7 @@ const publisherRoute = require('./publisherRoute')
 const userRoute = require('./userRoute')
 
 router.get('/', (req, res) => {
-    res.render('home');
+    res.render('home', { username: req.session.username });
 })
 
 router.use('/books', bookRoute)

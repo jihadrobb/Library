@@ -8,7 +8,7 @@ class Controller {
             ]
         })
         // .then(data => res.send(data))
-        .then(data => res.render('author/listAuthor', {data}))
+        .then(data => res.render('author/listAuthor', {data, username: req.session.username}))
         .catch(err => res.send(err))
     }
 
@@ -22,7 +22,7 @@ class Controller {
             ]
         })
         // .then(data => res.send(data))
-        .then(data => res.render('author/listAuthorBook', {data}))
+        .then(data => res.render('author/listAuthorBook', {data, username: req.session.username}))
         .catch(err => res.send(err))
     }
 }

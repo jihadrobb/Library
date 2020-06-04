@@ -25,7 +25,7 @@ class Controller {
           .catch(err => res.send(err));
     }
     static loginForm(req, res){
-        res.render('user/login', {alert: req.query.alert});
+        res.render('user/login', {alert: req.query.alert, username: req.session.username});
     }
     static login(req, res){
         User.findOne({ where: { username: req.body.username }})
@@ -98,7 +98,7 @@ class Controller {
               })
             })
             .then(data2 => {
-                res.render('user/returnBook', { datas, data2, alert: req.query.alert });
+                res.render('user/returnBook', { datas, data2, alert: req.query.alert, username: req.session.username });
                 // res.send(datas);
           })
           .catch(err => res.send(err));
