@@ -64,6 +64,12 @@ class Controller {
           .catch(err => res.send(err));
     }
     static borrow(req, res){
+
+    }
+    static returnForm(req, res){
+
+    }
+    static return(req, res){
         
     }
 }
