@@ -1,0 +1,105 @@
+[
+    {
+        "title": "Laskar Pelangi",
+        "genre": [
+            "Fiction",
+            "Drama"
+        ],
+        "released_year": 2005,
+        "AuthorId": 1,
+        "PublisherId": 1
+    },
+    {
+        "title": "Sang Pemimpi",
+        "genre": [
+            "Fiction",
+            "Drama"
+        ],
+        "released_year": 2006,
+        "AuthorId": 1,
+        "PublisherId": 1
+    },
+    {
+        "title": "Edensor",
+        "genre": [
+            "Fiction",
+            "Drama"
+        ],
+        "released_year": 2007,
+        "AuthorId": 1,
+        "PublisherId": 1
+    },
+    {
+        "title": "Maryamah Karpov",
+        "genre": [
+            "Fiction",
+            "Drama"
+        ],
+        "released_year": 2008,
+        "AuthorId": 1,
+        "PublisherId": 1
+    },
+    {
+        "title": "5cm",
+        "genre": [
+            "Sastra",
+            "Drama"
+        ],
+        "released_year": 2012,
+        "AuthorId": 2,
+        "PublisherId": 2
+    },
+    {
+        "title": "Ayat Ayat Cinta",
+        "genre": [
+            "Drama",
+            "Romance"
+        ],
+        "released_year": 2008,
+        "AuthorId": 3,
+        "PublisherId": 3
+    },
+    {
+        "title": "Ayat Ayat Cinta 2",
+        "genre": [
+            "Drama",
+            "Romance"
+        ],
+        "released_year": 2015,
+        "AuthorId": 3,
+        "PublisherId": 3
+    },
+    {
+        "title": "Negeri 5 Menara",
+        "genre": [
+            "Edukasi",
+            "Religi",
+            "Romance"
+        ],
+        "released_year": 2009,
+        "AuthorId": 4,
+        "PublisherId": 4
+    },
+    {
+        "title": "Ranah 3 Warna",
+        "genre": [
+            "Edukasi",
+            "Religi",
+            "Romance"
+        ],
+        "released_year": 2009,
+        "AuthorId": 4,
+        "PublisherId": 4
+    },
+    {
+        "title": "Rantau 1 Muara",
+        "genre": [
+            "Edukasi",
+            "Religi",
+            "Romance"
+        ],
+        "released_year": 2013,
+        "AuthorId": 4,
+        "PublisherId": 4
+    }
+]
