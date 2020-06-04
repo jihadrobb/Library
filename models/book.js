@@ -23,7 +23,6 @@ module.exports = (sequelize, DataTypes) => {
         }
       }
     },
-    avg_rating: DataTypes.INTEGER,
     released_year: {
       type: DataTypes.INTEGER,
       validate: {
