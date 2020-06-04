@@ -1,0 +1,27 @@
+<%- include('../partials/header.ejs', {title: data.username}) %>
+<a class="btn btn-primary" href="/users/logout">Logout</a>
+<div class="container mt-4">
+<table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Title</th>
+        <th scope="col">Borrow Date</th>
+        <th scope="col">Return Date</th>
+        <th scope="col">Rating</th>
+        <th scope="col">Review</th>
+      </tr>
+    </thead>
+    <tbody>
+    <% data.Books.forEach(el => { %>
+      <tr>
+        <td><%= el.title %></td>
+        <td><%= el.User_Book.borrow_date %></td>
+        <td><%= el.User_Book.return_date %></td>
+        <td><%= el.User_Book.rating %></td>
+        <td><%= el.User_Book.review %></td>
+      </tr>
+    <% }) %>
+    </tbody>
+  </table>
+</div>
+<%- include('../partials/footer.ejs') %>

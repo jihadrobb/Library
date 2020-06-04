@@ -1,4 +1,5 @@
 'use strict';
+const bcrypt = require('bcrypt');
 module.exports = (sequelize, DataTypes) => {
   const Model = sequelize.Sequelize.Model;
   class User extends Model {
@@ -15,6 +16,10 @@ module.exports = (sequelize, DataTypes) => {
         len: {
           args: [3,10],
           msg: 'Please input min 3 characters and max 10 characters for username'
+        },
+        notContains: {
+          args: 'admin',
+          msg: 'Admin is out of question!'
         }
       }
     },
@@ -49,6 +54,12 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize
   });
+  User.beforeCreate((instance, options) => {
+    const salt = bcrypt.genSaltSync(10);
+    const hash = bcrypt.hashSync(instance.password, salt);
+    instance.password = hash;
+  })
+
   User.associate = function(models) {
     User.belongsToMany(models.Book, { through: 'User_Book' });
   };
