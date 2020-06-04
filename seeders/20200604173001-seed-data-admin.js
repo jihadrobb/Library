@@ -6,14 +6,15 @@ module.exports = {
     admins.forEach(el => {
       const salt = bcrypt.genSaltSync(10);
       const hash = bcrypt.hashSync(el.password, salt);
+      el.rank = 'admin';
       el.password = hash;
       el.createdAt = new Date;
       el.updatedAt = new Date;
     });
-    return queryInterface.bulkInsert('Admins', admins);
+    return queryInterface.bulkInsert('Users', admins);
   },
 
   down: (queryInterface, Sequelize) => {
-    return queryInterface.bulkDelete('Admins');
+    return queryInterface.bulkDelete('Users');
   }
 };

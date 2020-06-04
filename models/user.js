@@ -50,7 +50,10 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         // on progress
       }
-    }
+    }, 
+    rank: {
+      type: DataTypes.STRING
+    },
   }, {
     sequelize
   });
@@ -58,6 +61,9 @@ module.exports = (sequelize, DataTypes) => {
     const salt = bcrypt.genSaltSync(10);
     const hash = bcrypt.hashSync(instance.password, salt);
     instance.password = hash;
+    if(!instance.rank){
+      instance.rank = 'guest';
+    }
   })
 
   User.associate = function(models) {

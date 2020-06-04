@@ -1,14 +1,21 @@
-const { User, Book, User_Book, Author } = require('../models');
+const { User, Book, User_Book, Author, Admin } = require('../models');
 const bcrypt = require('bcrypt');
 class Controller {
     static add(req, res){
-        res.render('user/register', {alert: req.query.alert});
+        res.render('user/register', {alert: req.query.alert, username: req.session.username});
     }
     static insert(req, res){
-        User.findOne({ where: { username: req.body.username }})
+        Admin.findOne({ where: { username: req.body.username }})
+          .then(data => {
+            if(data){
+                res.redirect('/users/register?alert=Username is taken');
+            } else {
+                return User.findOne({ where: { username: req.body.username }})
+            }
+          })
           .then(data => {
               if(data){
-                  res.redirect('/user/register?alert=Username is taken');
+                  res.redirect('/users/register?alert=Username is taken');
               } else {
                   return User.create({
                     username: req.body.username,
@@ -96,28 +103,28 @@ class Controller {
                   where: { id: data.BookId },
                   include: [Author]
               })
-            })
-            .then(data2 => {
-                res.render('user/returnBook', { datas, data2, alert: req.query.alert, username: req.session.username });
-                // res.send(datas);
+          })
+          .then(data2 => {
+            res.render('user/returnBook', { datas, data2, alert: req.query.alert, username: req.session.username });
+            // res.send(datas);
           })
           .catch(err => res.send(err));
-        }
-        static return(req, res){
-            User_Book.update(
-                {
-                    rating: req.body.rating,
-                    review: req.body.review,
-                    return_date: new Date()
-                },
-                {
-                    where: { id: req.params.id }
-                }
-            )
-              .then(data => {
-                  res.redirect(`/users/${req.params.username}`);
-              })
-              .catch(err => res.send(err));
+    }
+    static return(req, res){
+        User_Book.update(
+            {
+                rating: req.body.rating,
+                review: req.body.review,
+                return_date: new Date()
+            },
+            {
+                where: { id: req.params.id }
+            }
+        )
+            .then(data => {
+                res.redirect(`/users/${req.params.username}`);
+            })
+            .catch(err => res.send(err));
     }
 }
 module.exports = Controller;
