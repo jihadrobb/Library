@@ -18,7 +18,7 @@
     <% let genre = bookData.genre.substring(1, bookData.genre.length-1) %>
     <div class="form-group">
       <label for="genre">Genre</label>
-      <input type="text" class="form-control" name="genre" value="<%= `${genre}` %>">
+      <input type="text" class="form-control" name="genre" value="<%= genre %>">
     </div>
     <% } else { %>
     <div class="form-group">
@@ -36,7 +36,7 @@
         <select class="custom-select" name="AuthorId">
           <option value="">-- choose author --</option>
           <% authorData.forEach(el => { %>
-            <option <% if (el.id == bookData.AuthorId) { %> selected <% } %> value="AuthorId"><%= el.fullname %></option>
+            <option <% if (el.id == bookData.AuthorId) { %> selected <% } %> value="<%= el.id %>"><%= el.fullname %></option>
           <% }) %>
         </select>
     </div>
@@ -45,7 +45,7 @@
         <select class="custom-select" name="PublisherId">
           <option value="">-- choose publisher --</option>
           <% publisherData.forEach(el => { %>
-            <option <% if (el.id == bookData.PublisherId) { %> selected <% } %> value="PublisherId"><%= el.name %></option>
+            <option <% if (el.id == bookData.PublisherId) { %> selected <% } %> value="<%= el.id %>"><%= el.name %></option>
           <% }) %>
         </select>
     </div>
@@ -55,7 +55,7 @@
         <select class="custom-select" name="AuthorId">
           <option value="">-- choose author --</option>
           <% authorData.forEach(el => { %>
-            <option value="AuthorId"><%= el.fullname %></option>
+            <option value="<%= el.id %>"><%= el.fullname %></option>
           <% }) %>
         </select>
     </div>
@@ -64,7 +64,7 @@
         <select class="custom-select" name="PublisherId">
           <option value="">-- choose publisher --</option>
           <% publisherData.forEach(el => { %>
-            <option value="PublisherId"><%= el.name %></option>
+            <option value="<%= el.id %>"><%= el.name %></option>
           <% }) %>
         </select>
     </div>

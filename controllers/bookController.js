@@ -1,13 +1,35 @@
 const {Book, Author, Publisher} = require('../models')
+const {Op} = require('sequelize')
 
 class Controller {
-    static show(req, res) {
+    static search(req, res) {
+        let search = req.query.search
         Book.findAll({
-            include: [Author, Publisher]
+            include: [Author, Publisher],
+            where: {
+                title: {
+                    [Op.iLike]: `%${search}%`
+                }
+            }
         })
-        // .then(data => res.send(data)
         .then(data => res.render('books/listBook', {data}))
         .catch(err => res.send(err))
+    }
+
+    static show(req, res) {
+        if (req.query.search) {
+            Controller.search(req, res)
+        } else {
+            Book.findAll({
+                include: [Author, Publisher],
+                order: [
+                    ['id']
+                ]
+            })
+            // .then(data => res.send(data))
+            .then(data => res.render('books/listBook', {data}))
+            .catch(err => res.send(err))
+        }
     }
 
     static add(req, res) {
@@ -29,6 +51,7 @@ class Controller {
     
     static insert(req, res) {
         let {title, genre, released_year, AuthorId, PublisherId} = req.body
+        genre = `{${genre}}`
         Book.create({title, genre, released_year, AuthorId, PublisherId})
         .then(data => res.redirect('/books'))
         // .catch(err => res.send(err))
@@ -61,7 +84,8 @@ class Controller {
     static update(req, res) {
         let idData = req.params.id
         let {title, genre, released_year, AuthorId, PublisherId} = req.body
-        Book.create({
+        genre = `{${genre}}`
+        Book.update({
             title, genre, released_year, AuthorId, PublisherId
         }, {
             where: {id: idData}

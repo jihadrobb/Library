@@ -2,7 +2,11 @@ const {Book, Author, Publisher} = require('../models')
 
 class Controller {
     static show(req, res) {
-        Author.findAll()
+        Author.findAll({
+            order: [
+                ['id']
+            ]
+        })
         // .then(data => res.send(data))
         .then(data => res.render('author/listAuthor', {data}))
         .catch(err => res.send(err))
@@ -12,7 +16,10 @@ class Controller {
         let idData = req.params.id
         Book.findAll({
             include: [Publisher, Author],
-            where: {AuthorId: idData}
+            where: {AuthorId: idData},
+            order: [
+                ['id']
+            ]
         })
         // .then(data => res.send(data))
         .then(data => res.render('author/listAuthorBook', {data}))
