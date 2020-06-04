@@ -23,6 +23,8 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     hooks: {
       beforeCreate: (instance, options) => {
+        instance.createdAt = new Date();
+        instance.updatedAt = new Date();
         if(!instance.borrow_date){
           instance.borrow_date = new Date();
         }
@@ -35,8 +37,8 @@ module.exports = (sequelize, DataTypes) => {
     }
   });
   User_Book.associate = function(models) {
-    User_Book.belongsTo(models.Book);
-    User_Book.belongsTo(models.User);
+    User_Book.belongsTo(models.User, { foreignKey: 'UserId', targetKey: 'id' });
+    User_Book.belongsTo(models.Book, { foreignKey: 'BookId', targetKey: 'id' });
   };
   return User_Book;
 };

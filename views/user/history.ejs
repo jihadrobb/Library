@@ -1,24 +1,34 @@
-<%- include('../partials/header.ejs', {title: data.username}) %>
+<%- include('../partials/header.ejs', {title: username}) %>
 <a class="btn btn-primary" href="/users/logout">Logout</a>
 <div class="container mt-4">
 <table class="table table-striped">
     <thead>
       <tr>
         <th scope="col">Title</th>
+        <th scope="col">Genre</th>
         <th scope="col">Borrow Date</th>
         <th scope="col">Return Date</th>
         <th scope="col">Rating</th>
         <th scope="col">Review</th>
+        <th scope="col">Action</th>
       </tr>
     </thead>
     <tbody>
-    <% data.Books.forEach(el => { %>
+    <% data.forEach(el => { %>
       <tr>
-        <td><%= el.title %></td>
-        <td><%= el.User_Book.borrow_date %></td>
-        <td><%= el.User_Book.return_date %></td>
-        <td><%= el.User_Book.rating %></td>
-        <td><%= el.User_Book.review %></td>
+        <td><%= el.Book.title %></td>
+        <td><%= el.Book.genre %></td>
+        <td><%= el.borrow_date.toLocaleDateString() %></td>
+        <td><%= el.return_date ? el.return_date.toLocaleDateString() : '-' %></td>
+        <td><%= el.rating %></td>
+        <td><%= el.review %></td>
+        <td>
+          <% if(el.return_date){ %>
+            <a class="btn btn-primary" href="/users/<%=username%>/<%=el.Book.id%>">Borrow Again</a>
+          <% } else { %>
+            <a class="btn btn-primary" href="/users/<%=username%>/<%=el.id%>/return">Return</a>
+          <% } %>
+        </td>
       </tr>
     <% }) %>
     </tbody>

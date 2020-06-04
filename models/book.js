@@ -57,7 +57,7 @@ module.exports = (sequelize, DataTypes) => {
   Book.associate = function(models) {
     Book.belongsTo(models.Author);
     Book.belongsTo(models.Publisher);
-    Book.belongsToMany(models.User, { through: 'User_Book' });
+    Book.belongsToMany(models.User, { through: 'User_Books' });
   };
   return Book;
 };

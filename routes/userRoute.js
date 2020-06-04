@@ -18,8 +18,8 @@ function checkLogin(req, res, next){
 router.use(checkLogin);
 router.get('/:username', Controller.showHistory);
 router.get('/:username/:BookId', Controller.borrow);
-// router.get('/:username/:BookId/return', Controller.returnForm);
-// router.post('/:username/:BookId/return', Controller.return);
+router.get('/:username/:id/return', Controller.returnForm);
+router.post('/:username/:id/return', Controller.return);
 
 
 module.exports = router;
