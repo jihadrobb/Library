@@ -1,5 +1,6 @@
-<%- include('../partials/header.ejs', {title: username}) %>
+<%- include('../partials/header.ejs', {title: 'Borrowing History'}) %>
 <div class="container mt-4">
+  <h2><%= isAdmin(data_user) ? username + ' (admin)' : username %></h2>
 <table class="table table-striped">
     <thead>
       <tr>
