@@ -39,8 +39,8 @@
             <% } %>
         </td>
         <td><%= el.released_year %></td>
-        <td><%= `${el.Publisher.name}, ${el.Publisher.address}` %></td>
-        <td><%= el.Author.fullname %></td>
+        <td><a href="/publishers/books/<%= el.Author.id %>"><%= el.Publisher.name %></a>, <%= el.Publisher.address %></td>
+        <td><a href="/authors/books/<%= el.Author.id %>"><%= el.Author.fullname %></a></td>
         <td>
             <% if(admin){ %>
               <a href="/users/<%=username%>/<%= el.id %>" class="btn btn-success">Borrow</a>

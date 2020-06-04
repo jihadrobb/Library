@@ -55,18 +55,23 @@ class Controller {
         })
     }
     static showHistory(req, res){
+        let data_user;
         User.findOne({
             where: {username: req.params.username}
         })
           .then(data => {
+              data_user = data;
               return User_Book.findAll({
                   where: { UserId: data.id},
-                  include: [Book]
+                  include: [Book],
+                  order: [
+                      ['id']
+                  ]
               });
           })
           .then(data => {
                 // res.send(data);
-                res.render('user/history', { data, username: req.params.username });
+                res.render('user/history', { data, data_user, username: req.params.username, isAdmin });
           })
           .catch(err => res.send(err));
     }
