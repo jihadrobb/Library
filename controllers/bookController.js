@@ -12,7 +12,7 @@ class Controller {
                 }
             }
         })
-        .then(data => res.render('books/listBook', {data, username: req.session.username}))
+        .then(data => res.render('books/listBook', {data, username: req.session.username, admin: req.session.admin}))
         .catch(err => res.render('error', {err}))
     }
 
@@ -27,7 +27,7 @@ class Controller {
                 ]
             })
             // .then(data => res.send(data))
-            .then(data => res.render('books/listBook', {data, username: req.session.username}))
+            .then(data => res.render('books/listBook', {data, username: req.session.username, admin: req.session.admin}))
             .catch(err => res.render('error', {err}))
         }
     }
@@ -42,7 +42,7 @@ class Controller {
         })
         .then(publisher => {
             publisherData = publisher
-            res.render('books/formBook', {authorData, publisherData, bookData, alert, username: req.session.username})
+            res.render('books/formBook', { authorData, publisherData, bookData, alert, username: req.session.username, admin: req.session.admin })
             // res.send(authorData)
             // res.send(publisherData)
         })
@@ -75,7 +75,7 @@ class Controller {
         })
         .then(publisher => {
             publisherData = publisher
-            res.render('books/formBook', {authorData, publisherData, bookData, alert, username: req.session.username})
+            res.render('books/formBook', {authorData, publisherData, bookData, alert, username: req.session.username, admin: req.session.admin })
             // res.send(authorData)
             // res.send(publisherData)
             // res.send(bookData)

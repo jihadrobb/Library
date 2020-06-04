@@ -4,7 +4,9 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
-          <a class="btn btn-primary" href="/books/add">Add Book</a>
+          <% if(admin){ %>
+            <a class="btn btn-primary" href="/books/add">Add Book</a>
+          <% } %>
         </li>
       </ul>
       <form class="form-inline my-2 my-lg-0" method="get" action="/books">
@@ -40,8 +42,13 @@
         <td><%= `${el.Publisher.name}, ${el.Publisher.address}` %></td>
         <td><%= el.Author.fullname %></td>
         <td>
-            <a href="/books/edit/<%= el.id %>" class="btn btn-warning">Edit</a>
-            <a href="/books/delete/<%= el.id %>" class="btn btn-danger">Delete</a>
+            <% if(admin){ %>
+              <a href="/users/<%=username%>/<%= el.id %>" class="btn btn-success">Borrow</a>
+              <a href="/books/edit/<%= el.id %>" class="btn btn-warning">Edit</a>
+              <a href="/books/delete/<%= el.id %>" class="btn btn-danger">Delete</a>
+            <% } else { %>
+              <a href="/users/<%=username%>/<%= el.id %>" class="btn btn-success">Borrow</a>
+            <% } %>
         </td>
       </tr>
     <% }) %>
