@@ -1,9 +1,10 @@
-const {Book, Author, Publisher} = require('../models')
+const {Book, Author, Publisher, User, User_Book} = require('../models')
 const {Op} = require('sequelize')
-
+const nodemailer = require('../helpers/nodemailer');
 class Controller {
     static search(req, res) {
         let search = req.query.search
+        let data;
         Book.findAll({
             include: [Author, Publisher],
             where: {
@@ -12,7 +13,9 @@ class Controller {
                 }
             }
         })
-        .then(data => res.render('books/listBook', {data, username: req.session.username, admin: req.session.admin}))
+        .then(data => {
+            res.render('books/listBook', {data, username: req.session.username, admin: req.session.admin})
+        })
         .catch(err => res.render('error', {err}))
     }
 
@@ -51,13 +54,23 @@ class Controller {
     
     static insert(req, res) {
         let {title, genre, released_year, AuthorId, PublisherId} = req.body
+        let emails = [];
         if (genre) {
             genre = `{${genre}}`
         }
-        Book.create({title, genre, released_year, AuthorId, PublisherId})
-        .then(data => res.redirect('/books'))
-        // .catch(err => res.send(err))
-        .catch(err => res.redirect(`/books/add?alert=${err.errors[0].message}`))
+        User.findAll()
+          .then(data => {
+              data.forEach(el => {
+                  if(el.email) emails.push(el.email);
+              });
+              return Book.create({title, genre, released_year, AuthorId, PublisherId})
+          })
+          .then(data => {
+                nodemailer(emails, req.body.title);
+                res.redirect('/books')
+          })
+          .catch(err => res.send(err))
+          .catch(err => res.redirect(`/books/add?alert=${err.errors[0].message}`))
     }
     
     static edit(req, res) {
@@ -107,6 +120,7 @@ class Controller {
         .then(data => res.redirect('/books'))
         .catch(err => res.render('error', {err}))
     }
+
 }
 
 module.exports = Controller
