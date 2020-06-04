@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
     name: {
       type: DataTypes.STRING,
       validate: {
-        notNull: {
+        notEmpty: {
           args: true,
           msg: 'Please input Publisher\'s name'
         }
@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
     address: {
       type: DataTypes.STRING,
       validate: {
-        notNull: {
+        notEmpty: {
           args: true,
           msg: 'Please input Publisher\'s address'
         }

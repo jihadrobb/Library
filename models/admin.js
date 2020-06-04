@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
     username: {
       type: DataTypes.STRING,
       validate: {
-        notNull: {
+        notEmpty: {
           args: true,
           msg: 'You\'re supposed to have a username!'
         },
@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
     password: {
       type: DataTypes.STRING,
       validate: {
-        notNull: {
+        notEmpty: {
           args: true,
           msg: 'You\'re supposed to have a password!'
         },

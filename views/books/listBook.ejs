@@ -1,0 +1,51 @@
+<%- include('../partials/header.ejs', {title: 'List of Books'}) %>
+<div class="container mt-4">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="btn btn-primary" href="/books/add">Add Book</a>
+        </li>
+      </ul>
+      <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search by title" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      </form>
+    </div>
+  </nav>
+<table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Title</th>
+        <th scope="col">Genre</th>
+        <th scope="col">Released Year</th>
+        <th scope="col">Publisher</th>
+        <th scope="col">Author</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+    <% data.forEach(el => { %>
+      <tr>
+        <td><%= el.title %></td>
+        <% let genre = el.genre.substring(1, el.genre.length-1).split(',') %>
+        <td>
+            <% for (let i = 0; i < genre.length; i++) { %>
+            <ul class="list-group">
+                <li class="list-group-item"><%= genre[i] %></li>
+            </ul>
+            <% } %>
+        </td>
+        <td><%= el.released_year %></td>
+        <td><%= `${el.Publisher.name}, ${el.Publisher.address}` %></td>
+        <td><%= el.Author.fullname %></td>
+        <td>
+            <a href="/books/edit/<%= el.id %>" class="btn btn-warning">Edit</a>
+            <a href="/books/delete/<%= el.id %>" class="btn btn-danger">Delete</a>
+        </td>
+      </tr>
+    <% }) %>
+    </tbody>
+  </table>
+</div>
+<%- include('../partials/footer.ejs') %>

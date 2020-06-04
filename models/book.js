@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
     title: {
       type: DataTypes.STRING,
       validate: {
-        notNull: {
+        notEmpty: {
           args: true,
           msg: 'Book must have a title'
         }
@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
     genre: {
       type: DataTypes.STRING,
       validate: {
-        notNull: {
+        notEmpty: {
           args: true,
           msg: 'Book must have a genre'
         }
@@ -27,14 +27,30 @@ module.exports = (sequelize, DataTypes) => {
     released_year: {
       type: DataTypes.INTEGER,
       validate: {
-        notNull: {
+        notEmpty: {
           args: true,
           msg: 'Isn\'t the book released yet? Please input the year'
         }
       }
     },
-    PublisherId: DataTypes.INTEGER,
-    AuthorId: DataTypes.INTEGER
+    PublisherId: {
+      type: DataTypes.INTEGER,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: 'Book must have a publisher'
+        }
+      }
+    },
+    AuthorId: {
+      type: DataTypes.INTEGER,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: 'Book must have an author'
+        }
+      }
+    }
   }, {
     sequelize
   });

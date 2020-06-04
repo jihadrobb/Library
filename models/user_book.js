@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
     rating: {
       type: DataTypes.INTEGER,
       validate: {
-        notNull: {
+        notEmpty: {
           args: true,
           msg: 'Did you enjoy the book? Please rate (and give review for others if possible)'
         }

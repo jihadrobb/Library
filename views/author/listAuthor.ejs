@@ -1,0 +1,24 @@
+<%- include('../partials/header.ejs', {title: 'List of Books'}) %>
+<div class="container mt-4">
+<table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">First Name</th>
+        <th scope="col">Last Name</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+    <% data.forEach(el => { %>
+      <tr>
+        <td><%= el.first_name %></td>
+        <td><%= el.last_name %></td>
+        <td>
+            <a href="/authors/books/<%= el.id %>" class="btn btn-info">Show Books</a>
+        </td>
+      </tr>
+    <% }) %>
+    </tbody>
+  </table>
+</div>
+<%- include('../partials/footer.ejs') %>

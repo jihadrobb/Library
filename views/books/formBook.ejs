@@ -1,0 +1,76 @@
+<%- include('../partials/header.ejs', {title: 'Add New Book'}) %>
+<% if (alert) { %>
+    <div class="alert alert-danger" role="alert">
+        <%= alert %>
+    </div>
+<% } %>
+<div class="container mt-4">
+<% if (bookData) { %>
+    <form method="post" action="/books/edit/<%= bookData.id %>">
+<% } else { %>
+    <form method="post" action="/books/add">
+<% } %>
+    <div class="form-group">
+      <label for="title">Title</label>
+      <input type="text" class="form-control" name="title" value="<%= bookData ? bookData.title : '' %>">
+    </div>
+    <% if (bookData) { %>
+    <% let genre = bookData.genre.substring(1, bookData.genre.length-1) %>
+    <div class="form-group">
+      <label for="genre">Genre</label>
+      <input type="text" class="form-control" name="genre" value="<%= `${genre}` %>">
+    </div>
+    <% } else { %>
+    <div class="form-group">
+        <label for="genre">Genre</label>
+        <input type="text" class="form-control" name="genre" value="">
+    </div>
+    <% } %>
+    <div class="form-group">
+      <label for="released_year">Released Year</label>
+      <input type="number" class="form-control" name="released_year" value="<%= bookData ? bookData.released_year : '' %>">
+    </div>
+    <% if (bookData) { %>
+    <div class="form-group">
+      <label for="AuthorId">Author</label>
+        <select class="custom-select" name="AuthorId">
+          <option value="">-- choose author --</option>
+          <% authorData.forEach(el => { %>
+            <option <% if (el.id == bookData.AuthorId) { %> selected <% } %> value="AuthorId"><%= el.fullname %></option>
+          <% }) %>
+        </select>
+    </div>
+    <div class="form-group">
+      <label for="PublisherId">Publisher</label>
+        <select class="custom-select" name="PublisherId">
+          <option value="">-- choose publisher --</option>
+          <% publisherData.forEach(el => { %>
+            <option <% if (el.id == bookData.PublisherId) { %> selected <% } %> value="PublisherId"><%= el.name %></option>
+          <% }) %>
+        </select>
+    </div>
+    <% } else { %>
+    <div class="form-group">
+      <label for="AuthorId">Author</label>
+        <select class="custom-select" name="AuthorId">
+          <option value="">-- choose author --</option>
+          <% authorData.forEach(el => { %>
+            <option value="AuthorId"><%= el.fullname %></option>
+          <% }) %>
+        </select>
+    </div>
+    <div class="form-group">
+      <label for="PublisherId">Publisher</label>
+        <select class="custom-select" name="PublisherId">
+          <option value="">-- choose publisher --</option>
+          <% publisherData.forEach(el => { %>
+            <option value="PublisherId"><%= el.name %></option>
+          <% }) %>
+        </select>
+    </div>
+    <% } %>
+    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="reset" class="btn btn-danger">Reset</button>
+  </form>
+</div>
+<%- include('../partials/footer.ejs') %>

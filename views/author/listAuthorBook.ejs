@@ -1,0 +1,34 @@
+<% let author = data[0].Author.fullname %>
+<%- include('../partials/header.ejs', {title: author}) %>
+<div class="container mt-4">
+<table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Title</th>
+        <th scope="col">Genre</th>
+        <th scope="col">Released Year</th>
+        <th scope="col">Publisher</th>
+        <th scope="col">Author</th>
+      </tr>
+    </thead>
+    <tbody>
+    <% data.forEach(el => { %>
+      <tr>
+        <td><%= el.title %></td>
+        <% let genre = el.genre.substring(1, el.genre.length-1).split(',') %>
+        <td>
+            <% for (let i = 0; i < genre.length; i++) { %>
+            <ul class="list-group">
+                <li class="list-group-item"><%= genre[i] %></li>
+            </ul>
+            <% } %>
+        </td>
+        <td><%= el.released_year %></td>
+        <td><%= `${el.Publisher.name}, ${el.Publisher.address}` %></td>
+        <td><%= el.Author.fullname %></td>
+      </tr>
+    <% }) %>
+    </tbody>
+  </table>
+</div>
+<%- include('../partials/footer.ejs') %>
