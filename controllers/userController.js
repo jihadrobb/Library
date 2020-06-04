@@ -1,18 +1,12 @@
 const { User, Book, User_Book, Author, Admin } = require('../models');
 const bcrypt = require('bcrypt');
+const isAdmin = require('../helpers/isAdmin');
 class Controller {
     static add(req, res){
         res.render('user/register', {alert: req.query.alert, username: req.session.username});
     }
     static insert(req, res){
-        Admin.findOne({ where: { username: req.body.username }})
-          .then(data => {
-            if(data){
-                res.redirect('/users/register?alert=Username is taken');
-            } else {
-                return User.findOne({ where: { username: req.body.username }})
-            }
-          })
+        User.findOne({ where: { username: req.body.username }})
           .then(data => {
               if(data){
                   res.redirect('/users/register?alert=Username is taken');
@@ -42,7 +36,8 @@ class Controller {
             } else {
                 if(bcrypt.compareSync(req.body.password, data.password)){
                     req.session.username = req.body.username;
-                    res.redirect(`/users/${req.body.username}`);
+                    if(isAdmin(data)) req.session.admin = true;
+                    res.redirect('/');
                 } else {
                     res.redirect('/users/login?alert=Wrong password!')
                 }
