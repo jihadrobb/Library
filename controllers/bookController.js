@@ -13,7 +13,7 @@ class Controller {
             }
         })
         .then(data => res.render('books/listBook', {data, username: req.session.username}))
-        .catch(err => res.send(err))
+        .catch(err => res.render('error', {err}))
     }
 
     static show(req, res) {
@@ -28,7 +28,7 @@ class Controller {
             })
             // .then(data => res.send(data))
             .then(data => res.render('books/listBook', {data, username: req.session.username}))
-            .catch(err => res.send(err))
+            .catch(err => res.render('error', {err}))
         }
     }
 
@@ -46,12 +46,14 @@ class Controller {
             // res.send(authorData)
             // res.send(publisherData)
         })
-        .catch(err => res.send(err))
+        .catch(err => res.render('error', {err}))
     }
     
     static insert(req, res) {
         let {title, genre, released_year, AuthorId, PublisherId} = req.body
-        genre = `{${genre}}`
+        if (genre) {
+            genre = `{${genre}}`
+        }
         Book.create({title, genre, released_year, AuthorId, PublisherId})
         .then(data => res.redirect('/books'))
         // .catch(err => res.send(err))
@@ -78,21 +80,23 @@ class Controller {
             // res.send(publisherData)
             // res.send(bookData)
         })
-        .catch(err => res.send(err))
+        .catch(err => res.render('error', {err}))
     }
     
     static update(req, res) {
         let idData = req.params.id
         let {title, genre, released_year, AuthorId, PublisherId} = req.body
-        genre = `{${genre}}`
+        if (genre) {
+            genre = `{${genre}}`
+        }
         Book.update({
             title, genre, released_year, AuthorId, PublisherId
         }, {
             where: {id: idData}
         })
         .then(data => res.redirect('/books'))
-        .catch(err => res.send(err))
-        // .catch(err => res.redirect(`/books/edit/${idData}?alert=${err.errors[0].message}`))
+        // .catch(err => res.send(err))
+        .catch(err => res.redirect(`/books/edit/${idData}?alert=${err.errors[0].message}`))
     }
     
     static delete(req, res) {
@@ -101,7 +105,7 @@ class Controller {
             where: {id: idData}
         })
         .then(data => res.redirect('/books'))
-        .catch(err => res.send(err))
+        .catch(err => res.render('error', {err}))
     }
 }
 

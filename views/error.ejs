@@ -1,0 +1,7 @@
+<%- include('./partials/header.ejs', {title: 'Error'}) %>
+<% if (err) { %>
+  <div class="alert alert-danger" role="alert">
+      <%= err %>
+  </div>
+<% } %>
+<%- include('./partials/footer.ejs') %>
