@@ -1,4 +1,5 @@
 'use strict';
+const bcrypt = require('bcrypt');
 module.exports = (sequelize, DataTypes) => {
   const Model = sequelize.Sequelize.Model;
   class Admin extends Model {
@@ -34,6 +35,11 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize
   });
+  Admin.beforeCreate((instance, options) => {
+    const salt = bcrypt.genSaltSync(10);
+    const hash = bcrypt.hashSync(instance.password, salt);
+    instance.password = hash;
+  })
   Admin.associate = function(models) {
     // associations can be defined here
   };
