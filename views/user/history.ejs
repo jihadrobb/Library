@@ -17,7 +17,14 @@
     <% data.forEach(el => { %>
       <tr>
         <td><%= el.Book.title %></td>
-        <td><%= el.Book.genre %></td>
+        <% let genre = el.Book.genre.substring(1, el.Book.genre.length-1).split(',') %>
+        <td>
+            <% for (let i = 0; i < genre.length; i++) { %>
+            <ul class="list-group">
+                <li class="list-group-item"><%= genre[i] %></li>
+            </ul>
+            <% } %>
+        </td>
         <td><%= el.borrow_date.toLocaleDateString() %></td>
         <td><%= el.return_date ? el.return_date.toLocaleDateString() : '-' %></td>
         <td><%= el.rating %></td>

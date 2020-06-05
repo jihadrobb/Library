@@ -70,7 +70,7 @@ class Controller {
               });
           })
           .then(data => {
-                // res.send(data);
+                // res.send(data[0].Book);
                 res.render('user/history', { data, data_user, username: req.params.username, isAdmin });
           })
           .catch(err => res.send(err));

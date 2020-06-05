@@ -69,7 +69,7 @@ class Controller {
                 nodemailer(emails, req.body.title);
                 res.redirect('/books')
           })
-          .catch(err => res.send(err))
+        //   .catch(err => res.send(err))
           .catch(err => res.redirect(`/books/add?alert=${err.errors[0].message}`))
     }
     
